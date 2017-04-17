@@ -1,0 +1,73 @@
+﻿@model SportsStore.Domain.Entities.ShippingDetails
+
+@{
+    ViewBag.Title = "结账";
+}
+
+<h2>现在结算</h2>
+<p>请输入您的详细地址和联系方式,我们将尽快将货物送到您身边~</p>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <h3>收货人</h3>
+    <div class="form-group">
+        <label>姓名:</label>
+        @Html.TextBoxFor(x => x.Name, new { @class="form-control"})
+    </div>
+
+    <h3>收货地址</h3>
+
+    foreach(var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "Name" && property.PropertyName != "GiftWarp")
+        {
+            <div class="form-group">
+                <label>@(property.DisplayName??property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName, null, new { @class="form-control"})
+            </div>
+        }
+    }
+
+    @*<div class="form-group">
+        <label>地址一:</label>
+        @Html.TextBoxFor(x => x.Line1, new { @class="form-control"})
+    </div>
+    <div class="form-group">
+        <label>地址二:</label>
+        @Html.TextBoxFor(x => x.Line2, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>地址三:</label>
+        @Html.TextBoxFor(x => x.Line3, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>省:</label>
+        @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>市区:</label>
+        @Html.TextBoxFor(x => x.State, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>镇街:</label>
+        @Html.TextBoxFor(x => x.Zip, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>详细地址:</label>
+        @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })
+    </div>*@
+
+    <h3>额外选项</h3>
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(x=>x.GiftWarp)
+            礼品包装
+        </label>
+    </div>
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="完成下单" />
+    </div>
+}
+
